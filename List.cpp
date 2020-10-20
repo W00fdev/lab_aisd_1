@@ -89,9 +89,11 @@ void List::insert(int data, size_t index) {
 }
 
 int List::at(size_t index) const {
-    if (index == 0u) return begin->value;
+    if (size == 0u) throw logic_error("It's an empty list. Nothing to find. {at_error}");
     if (index >= size)
         throw out_of_range("Index is greater than a List size {at_error}");
+
+    if (index == 0u) return begin->value;
 
     Node *current = begin;
     size_t counter = 0u;
@@ -104,12 +106,12 @@ int List::at(size_t index) const {
 }
 
 void List::remove(size_t index) {
+    if (size == 0u) throw logic_error("It's an empty list. Nothing to remove. {remove_error}");
+    if (index >= size)
+        throw out_of_range("Index is greater than a List size {remove_error}");
     if (index == 0u) {
         pop_front();
-    }
-    else if (index >= size)
-        throw out_of_range("Index is greater than a List size {remove_error}");
-    else if (index == size - 1) {
+    } else if (index == size - 1) {
         pop_back();
     } else {
         Node *current = begin;

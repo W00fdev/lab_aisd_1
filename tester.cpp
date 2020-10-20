@@ -167,3 +167,25 @@ TEST(additional_tests, find_last_2) {
     List *l2 = new List({1, 1, 1, 1, 2});
     ASSERT_EQ(l1->find_last(l2), 4);
 }
+
+// --------------------------- exceptions_tests --------------------------- //
+
+// situations for all out_of_range exceptions
+TEST(exceptions_tests, out_of_range) {
+    List l1;
+    ASSERT_THROW(l1.insert(10, 10), std::out_of_range);
+    l1.push_back(0);
+    ASSERT_THROW(l1.at(10), std::out_of_range);
+    ASSERT_THROW(l1.remove(10), std::out_of_range);
+    ASSERT_THROW(l1.set(10, 10), std::out_of_range);
+    ASSERT_THROW(l1.find_last(new List({1, 2, 3, 4, 5})), std::out_of_range);
+}
+
+// situations for all logical_error exceptions
+TEST(exceptions_tests, logical_error) {
+    List l1;
+    ASSERT_THROW(l1.set(10, 10), std::logic_error);
+    ASSERT_THROW(l1.at(10), std::logic_error);
+    ASSERT_THROW(l1.remove(10), std::logic_error);
+
+}
